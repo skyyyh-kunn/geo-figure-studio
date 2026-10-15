@@ -1,0 +1,22 @@
+# 原始数据一律不入库
+data/
+*.hdf
+*.hdf5
+*.nc
+*.img
+*.ovr
+*.aux.xml
+
+# Python
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# 临时与预览
+tmp/
+*.tmp
+*_preview.png
+.playwright-mcp/

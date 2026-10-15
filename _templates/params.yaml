@@ -1,0 +1,78 @@
+# geo-figure-studio 参数文件 —— 唯一真相源
+# 改图 = 改这里 → 重跑 make_fig.py。禁止在 make_fig.py 中硬编码下列任何值。
+
+meta:
+  figure_id: ""              # 目录名，如 2026-10-13_河北NDVI年际趋势
+  title: ""                  # 图的内部称呼
+  created: ""                # YYYY-MM-DD
+
+# ── 硬门禁 8 项 ─────────────────────────────────────────────
+gate:
+  study_area:
+    name: ""                 # 如 河北省
+    boundary: ""             # 边界文件绝对路径
+    bbox: []                 # [minx, miny, maxx, maxy]，经纬度
+  data_source:
+    paths: []                # 绝对路径列表
+    sensor: ""               # Landsat-8 OLI / Sentinel-2 MSI / MODIS / SRTM
+    resolution_m: null
+    time_range: []           # ["2015-01-01", "2023-12-31"]
+  preprocessing:             # ★ 复现的关键
+    composite: ""            # max / mean / median
+    composite_period: ""     # 如 16-day, yearly
+    cloud_mask: ""           # QA-band / Fmask / none
+    atmospheric_correction: ""   # LaSRC / Sen2Cor / none
+    index_formula: ""        # 如 (NIR-Red)/(NIR+Red)
+  figure_type: ""            # 12 类之一的编号，如 01-raster-index
+  destination: ""            # journal / thesis / ppt
+  size:
+    width_mm: 90             # 单栏 90 / 双栏 190 / 整页 170
+    height_mm: 60
+    exact: true              # 期刊图必须 true
+  crs:
+    epsg: null               # 如 4544（CGCS2000 3度带）
+    kind: ""                 # geographic / projected
+  narrative: ""              # 这张图要证明什么结论
+
+# ── 精修 6 区块 ─────────────────────────────────────────────
+refine:
+  palette:
+    scheme: sequential       # sequential / diverging / qualitative
+    cmap: YlGn
+    classify_method: jenks   # jenks / quantile / equal / std
+    k: 5
+    bins: []                 # 留空则由 classify() 自动算；填了则强制使用
+    colorblind_checked: false
+  map_elements:
+    scalebar: true
+    scalebar_units: m
+    north_arrow: true
+    gridlines: false
+    legend: true
+    legend_loc: lower left
+    inset: false
+  text:
+    language: zh             # zh / en / both
+    label_axes: true
+    panel_labels: []         # ["(a)", "(b)"]，多子图时填
+    unit_note: ""
+    significant_digits: 2
+  layout:
+    n_panels: 1
+    panel_ratio: []
+    shared_legend: false
+  output:
+    formats: [pdf, tif, png]
+    dpi: 600
+    version: 1
+
+# ── 数据指纹（数据不入库，靠这里校验）───────────────────────
+data_fingerprint: []
+# - path: D:\data\hebei_dem.tif
+#   bytes: 123456789
+#   sha256: "..."
+
+# ── 质检记录 ───────────────────────────────────────────────
+qa:
+  last_run: ""
+  result: ""                 # 不合规 / 疑似 / 通过

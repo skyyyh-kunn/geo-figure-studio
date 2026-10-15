@@ -1,0 +1,15 @@
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.tif  filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.pdf  filter=lfs diff=lfs merge=lfs -text
+*.svg  filter=lfs diff=lfs merge=lfs -text
+*.jpg  filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+
+# 参数与代码必须是纯文本，永不进 LFS
+*.py   -text
+*.yaml text eol=lf
+*.md   text eol=lf
+
+# 大栅格不入库（数据策略见 spec §9.3）
+*.tif.aux.xml -filter -diff -merge
